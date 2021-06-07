@@ -1,10 +1,4 @@
-import React from 'react';
-import styles from './NotFound.css';
-
-export default function Page() {
-  return (
-    <div>
-      <h1 className={styles.title}>Page NotFound 404.</h1>
-    </div>
-  );
+import Exception from 'ant-design-pro/lib/Exception';
+export default function () {
+  return <Exception type="404" backText="返回首页" />;
 }

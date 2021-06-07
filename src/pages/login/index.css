@@ -1,4 +1,8 @@
 
-.title {
-  background: rgb(121, 242, 197);
+.loginForm{
+  width: 50%;
+  margin: 100px auto;
+}
+.logo{
+  margin-bottom: 30px;
 }
