@@ -1,8 +1,8 @@
 export default {
-  'post /api.login': (req, res) => {
+  'post /api/login': (req, res) => {
     const { username, password } = req.body;
     if (username == 'kaikeba' && password == '123') {
-      return res.json({
+      var resObj = res.json({
         code: 0,
         data: {
           token: 'kaikebaisgood',
@@ -11,6 +11,8 @@ export default {
           username: 'kaikeba',
         },
       });
+      console.log(resObj);
+      return resObj;
     }
 
     if (username == 'jerry' && password == '123') {
@@ -24,7 +26,7 @@ export default {
         },
       });
     }
-    return res.json({
+    return res.status(401).json({
       code: -1,
       msg: '密码错误',
     });

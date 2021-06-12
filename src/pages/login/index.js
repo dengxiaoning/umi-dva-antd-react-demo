@@ -1,107 +1,88 @@
-import React from 'react';
-import { message } from 'antd';
-import ProForm, { ProFormText, ProFormCaptcha } from '@ant-design/pro-form';
-import { MobileOutlined, MailOutlined } from '@ant-design/icons';
+import React, { Component } from 'react';
+import styles from './index.css';
+import ProForm, { ProFormText } from '@ant-design/pro-form';
+import { UnlockOutlined, UserOutlined } from '@ant-design/icons';
+import { connect } from 'dva';
 
-const waitTime = (time = 100) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
-};
-
-export default () => {
-  return (
-    <div
-      style={{
-        width: 330,
-        margin: 'auto',
-      }}
-    >
-      <ProForm
-        onFinish={async () => {
-          await waitTime(2000);
-          message.success('提交成功');
-        }}
-        submitter={{
-          searchConfig: {
-            submitText: '登录',
-          },
-          render: (_, dom) => dom.pop(),
-          submitButtonProps: {
-            size: 'large',
-            style: {
-              width: '100%',
+@connect()
+class index extends Component {
+  onSubmit = (values) => {
+    console.log(values);
+    if (values) {
+      this.props.dispatch({ type: 'user/login', payload: values });
+    }
+  };
+  render() {
+    return (
+      <div className={styles.loginForm}>
+        <ProForm
+          onFinish={(values) => this.onSubmit(values)}
+          submitter={{
+            searchConfig: {
+              submitText: '登录',
             },
-          },
-        }}
-      >
-        <h1
-          style={{
-            textAlign: 'center',
+            submitButtonProps: {
+              size: 'large',
+              style: {
+                width: '100%',
+              },
+            },
+            // 完全自定义整个区域
+            render: (_, dom) => dom.pop(),
           }}
         >
-          <img
+          <h1
             style={{
-              height: '44px',
-              marginRight: 16,
+              textAlign: 'center',
             }}
-            alt="logo"
-            src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+          >
+            <img
+              className={styles.logo}
+              alt="logo"
+              src="https://img.kaikeba.com/logo-new.png"
+            />
+          </h1>
+          <div
+            style={{
+              marginTop: 12,
+              textAlign: 'center',
+              marginBottom: 40,
+            }}
+          >
+            WE USE ANT DESIGN TO MAKE FORM FOR LOGIN.
+          </div>
+          <ProFormText
+            fieldProps={{
+              size: 'large',
+              prefix: <UserOutlined />,
+            }}
+            name="username"
+            placeholder="kaikeba"
+            rules={[
+              {
+                required: true,
+                message: '请输入用户名!',
+              },
+            ]}
           />
-          Ant Design
-        </h1>
-        <div
-          style={{
-            marginTop: 12,
-            textAlign: 'center',
-            marginBottom: 40,
-          }}
-        >
-          Ant Design 是西湖区最具影响力的 Web 设计规范
-        </div>
-        <ProFormText
-          fieldProps={{
-            size: 'large',
-            prefix: <MobileOutlined />,
-          }}
-          name="phone"
-          placeholder="请输入手机号"
-          rules={[
-            {
-              required: true,
-              message: '请输入手机号!',
-            },
-            {
-              pattern: /^1\d{10}$/,
-              message: '不合法的手机号格式!',
-            },
-          ]}
-        />
-        <ProFormCaptcha
-          fieldProps={{
-            size: 'large',
-            prefix: <MailOutlined />,
-          }}
-          captchaProps={{
-            size: 'large',
-          }}
-          phoneName="phone"
-          name="captcha"
-          rules={[
-            {
-              required: true,
-              message: '请输入验证码',
-            },
-          ]}
-          placeholder="请输入验证码"
-          onGetCaptcha={async (phone) => {
-            await waitTime(1000);
-            message.success(`手机号 ${phone} 验证码发送成功!`);
-          }}
-        />
-      </ProForm>
-    </div>
-  );
-};
+          <ProFormText.Password
+            fieldProps={{
+              size: 'large',
+              prefix: <UnlockOutlined />,
+            }}
+            name="password"
+            placeholder="123"
+            rules={[
+              {
+                required: true,
+                message: '请输入密码!',
+              },
+            ]}
+          />
+        </ProForm>
+      </div>
+    );
+  }
+}
+
+export default index;
