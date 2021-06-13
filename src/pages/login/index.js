@@ -7,7 +7,6 @@ import { connect } from 'dva';
 @connect()
 class index extends Component {
   onSubmit = (values) => {
-    console.log(values);
     if (values) {
       this.props.dispatch({ type: 'user/login', payload: values });
     }

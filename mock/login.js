@@ -11,7 +11,6 @@ export default {
           username: 'kaikeba',
         },
       });
-      console.log(resObj);
       return resObj;
     }
 

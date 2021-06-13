@@ -12,7 +12,6 @@ const userinfo =
 // 登录请求
 function loginReq(payload) {
   return reqService.post('/api/login', payload).then((res) => {
-    console.log(res);
     return {
       code: res.data.code,
       userinfo: res.data.data,
@@ -29,6 +28,8 @@ export default {
         const { code, userinfo } = yield call(loginReq, payload);
 
         localStorage.setItem('userinfo', JSON.stringify(userinfo));
+        // 触发reducers更新状态
+        // 犹如import { call, put, takeEvery } from 'redux-saga/effects'中的takeEvery
         yield put({
           type: 'init',
           payload: userinfo,
@@ -39,8 +40,9 @@ export default {
       }
     },
   },
-  reducer: {
+  reducers: {
     init(state, action) {
+      // 将状态更新到state
       return action.payload;
     },
   },

@@ -1,25 +1,26 @@
 import { Link } from 'umi';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Badge, Dropdown } from 'antd';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { connect } from 'dva';
 import styles from './index.css';
 
 const { Header, Footer, Content } = Layout;
 
-export default function Page(props) {
-  const { pathname } = props.location;
-  const menus = [
-    { path: '/', name: '商品' },
-    { path: '/users', name: '用户' },
-    { path: '/about', name: '关于' },
-  ];
-
-  const selectedKeys = menus
-    .filter((menu) => {
-      if (menu.path === '/') {
-        return pathname === '/';
-      }
-      return pathname.startsWith(menu.path);
-    })
-    .map((men) => men.path);
+export default connect((state) => ({
+  count: state.cart.length,
+  cart: state.cart,
+}))(function (props) {
+  const selectedKeys = props.location.pathname;
+  const dorpdownMenu = (
+    <Menu>
+      {props.cart.map((item, index) => (
+        <Menu.Item key={index}>
+          {item.name}x{item.count}
+          <span>￥{item.count * item.price}</span>
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
 
   return (
     <Layout>
@@ -45,6 +46,13 @@ export default function Page(props) {
             <Link to="/about">关于</Link>
           </Menu.Item>
         </Menu>
+        <Dropdown overlay={dorpdownMenu} placement="bottomRight">
+          <div style={{ float: 'right' }}>
+            <ShoppingCartOutlined style={{ fontSize: 18 }} />
+            <span>我的购物车</span>
+            <Badge count={props.count} offset={[-4, -18]} />
+          </div>
+        </Dropdown>
       </Header>
       <Content className={styles.content}>
         <div className={styles.box}>{props.children}</div>
@@ -52,4 +60,4 @@ export default function Page(props) {
       <Footer className={styles.footer}>开科吧</Footer>
     </Layout>
   );
-}
+});
