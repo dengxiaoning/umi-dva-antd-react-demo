@@ -1,4 +1,4 @@
-import axios from 'axios';
+import reqService from 'axios';
 import { history } from 'umi';
 
 const userinfo =
@@ -11,7 +11,7 @@ const userinfo =
   };
 // 登录请求
 function loginReq(payload) {
-  return axios.post('/api/login', payload).then((res) => {
+  return reqService.post('/api/login', payload).then((res) => {
     console.log(res);
     return {
       code: res.data.code,
@@ -26,7 +26,7 @@ export default {
   effects: {
     *login({ payload }, { call, put }) {
       try {
-        const { userinfo } = yield call(loginReq, payload);
+        const { code, userinfo } = yield call(loginReq, payload);
 
         localStorage.setItem('userinfo', JSON.stringify(userinfo));
         yield put({
@@ -34,7 +34,9 @@ export default {
           payload: userinfo,
         });
         history.push('/');
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   reducer: {
