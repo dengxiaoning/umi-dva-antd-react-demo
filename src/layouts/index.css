@@ -5,8 +5,9 @@
 
 .logo{
   float: left;
-  width:160px;
-  margin:16px 16px 0 0 ;
+  width: 160px;
+  height: 62px;
+  margin: 0px 16px 0 0;
 }
 .content{
   margin: 16px;

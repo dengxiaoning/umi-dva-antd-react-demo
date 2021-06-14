@@ -9,7 +9,6 @@ import ProCard from '@ant-design/pro-card';
     loading: state.loading,
     tags: state.goods.tags,
     courses: state.goods.courses,
-    userinfo: state.user,
   }),
   {
     getList: () => ({
@@ -58,7 +57,6 @@ class Goods extends Component {
   }
 
   tagSelectChange = (tags, courses = this.props.courses) => {
-    console.log(this.props.userinfo);
     let dealTags;
     // 当tags 为一个数组时，应该是第一次will receive invoke
     if (Array.isArray(tags)) {

@@ -1,27 +1,27 @@
 export default {
   'post /api/login': (req, res) => {
     const { username, password } = req.body;
-    if (username == 'kaikeba' && password == '123') {
+    if (username == 'admin' && password == '123') {
       var resObj = res.json({
         code: 0,
         data: {
-          token: 'kaikebaisgood',
+          token: 'admin123',
           role: 'admin',
           balance: 1000,
-          username: 'kaikeba',
+          username: 'admin',
         },
       });
       return resObj;
     }
 
-    if (username == 'jerry' && password == '123') {
+    if (username == 'dex' && password == '123') {
       return res.json({
         code: 0,
         data: {
-          token: 'kaikebaisgood',
+          token: 'dex123',
           role: 'user',
           balance: 100,
-          username: 'jerry',
+          username: 'dex',
         },
       });
     }

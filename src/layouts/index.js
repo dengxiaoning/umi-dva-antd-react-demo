@@ -3,6 +3,7 @@ import { Layout, Menu, Badge, Dropdown } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { connect } from 'dva';
 import styles from './index.css';
+const logo = require('../../public/course/logo.jpeg');
 
 const { Header, Footer, Content } = Layout;
 
@@ -25,11 +26,7 @@ export default connect((state) => ({
   return (
     <Layout>
       <Header className={styles.header}>
-        <img
-          className={styles.logo}
-          src="https://img.kaikeba.com/logo-new.png"
-          alt=""
-        />
+        <img className={styles.logo} src={logo} alt="" />
         <Menu
           theme="dark"
           mode="horizontal"
@@ -57,7 +54,7 @@ export default connect((state) => ({
       <Content className={styles.content}>
         <div className={styles.box}>{props.children}</div>
       </Content>
-      <Footer className={styles.footer}>开科吧</Footer>
+      <Footer className={styles.footer}>learning</Footer>
     </Layout>
   );
 });

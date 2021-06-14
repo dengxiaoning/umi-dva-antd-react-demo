@@ -3,6 +3,7 @@ import styles from './index.css';
 import ProForm, { ProFormText } from '@ant-design/pro-form';
 import { UnlockOutlined, UserOutlined } from '@ant-design/icons';
 import { connect } from 'dva';
+const logo2 = require('../../../public/course/logo2.jpeg');
 
 @connect()
 class index extends Component {
@@ -35,11 +36,7 @@ class index extends Component {
               textAlign: 'center',
             }}
           >
-            <img
-              className={styles.logo}
-              alt="logo"
-              src="https://img.kaikeba.com/logo-new.png"
-            />
+            <img className={styles.logo} alt="logo" src={logo2} />
           </h1>
           <div
             style={{
@@ -48,7 +45,7 @@ class index extends Component {
               marginBottom: 40,
             }}
           >
-            WE USE ANT DESIGN TO MAKE FORM FOR LOGIN.
+            WE USE ANTD DESIGN TO CREATE A LOGIN PAGE.
           </div>
           <ProFormText
             fieldProps={{
@@ -56,7 +53,7 @@ class index extends Component {
               prefix: <UserOutlined />,
             }}
             name="username"
-            placeholder="kaikeba"
+            placeholder="admin"
             rules={[
               {
                 required: true,
